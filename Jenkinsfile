@@ -70,5 +70,19 @@ pipeline{
 
         }
 
+        stage("Slack Notification") {
+            steps {
+                echo 'slack test'
+            }
+            post {
+                success {
+                    slackSend channel: '#프로그래밍', color: 'good', message: "success"
+                }
+                failure {
+                    slackSend channel: '#프로그래밍', color: 'danger', message: "failure"
+                }
+            }
+        }
+
     }
 }
