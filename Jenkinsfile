@@ -61,6 +61,7 @@ pipeline{
             steps{
                 echo 'SSH'
                 sshagent (credentials: ['ubuntu-server2']) {
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.40.133 'docker pull mooh2jj/docker-jenkins-pipeline-test'"
                     sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.40.133 'docker ps -q --filter name=docker-jenkins-pipleline | grep -q . && docker rm -f \$(docker ps -aq --filter name=docker-jenkins-pipleline)'"
                     sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.40.133 'docker run -d --name docker-jenkins-pipleline -p 8080:8080 mooh2jj/docker-jenkins-pipeline-test'"
                 }
