@@ -62,6 +62,7 @@ pipeline{
                 echo 'SSH'
                 sshagent (credentials: ['ubuntu-server2']) {
                     // 인스턴스 중지 후 다시 하면 오류남 -> run 만 돌리고 그 다음 이 3명령어로 하면 성공됨
+                    // 즉, 아래 run이 된 상태여야 오류가 안남
                     // 처음에 run -> 기존 run한 컨테이너 제거위한 filter 명령어 docker rm -> 그리고 새로 run
                     sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.40.133 'docker pull mooh2jj/docker-jenkins-pipeline-test'"
                     sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.40.133 'docker ps -q --filter name=docker-jenkins-pipleline | grep -q . && docker rm -f \$(docker ps -aq --filter name=docker-jenkins-pipleline)'"
